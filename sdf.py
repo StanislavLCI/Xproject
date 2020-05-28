@@ -55,7 +55,7 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
             sock.close()
             print(decode)
             if decode == '1':
-                self.label_6.setText('логин и пароль верны')
+                self.label_6.setText('Данные верны')
             else:
                 self.label_6.setText('неправельные данные')
 
