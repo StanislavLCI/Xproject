@@ -57,7 +57,7 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
             if decode == '1':
                 self.label_6.setText('Данные верны...')
             else:
-                self.label_6.setText('неправельные данные')
+                self.label_6.setText('неправельные данные...')
 
 
 
