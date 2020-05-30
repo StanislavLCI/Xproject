@@ -5,6 +5,8 @@ import LiginPanel
 import time
 import pickle
 import socket
+import core
+from multiprocessing import Process
 
 class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
 
@@ -18,46 +20,36 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
         self.lineEdit_2.hide()
         self.pushButton.hide()
         self.pushButton_2.clicked.connect(exit)
-        self.pushButton_3.clicked.connect(self.con)
+        self.pushButton_3.clicked.connect(self.test_connect)
         self.pushButton.clicked.connect(self.lite)
-        if self.label != self.label.show():
-            self.con()
+        self.test_connect()
 
 
-    def con(self):
-        try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect(('localhost', 1000))
-            sock.close()
-            if sock:
-                self.label_2.show()
-                self.label_3.show()
-                self.lineEdit.show()
-                self.lineEdit_2.show()
-                self.pushButton.show()
-                self.label.hide()
-                self.pushButton_3.hide()
-        except:
-          pass
+
+
+
+    def test_connect(self):
+        a = core.sock.sock_conn_test(self)
+        if a:
+            self.label_2.show()
+            self.label_3.show()
+            self.lineEdit.show()
+            self.lineEdit_2.show()
+            self.pushButton.show()
+            self.label.hide()
+            self.pushButton_3.hide()
 
 
     def lite(self):
         if self.lineEdit.text() and self.lineEdit_2.text():
-            lig = self.lineEdit.text()
-            pas = self.lineEdit_2.text()
-            ff = [lig, pas]
-            dy = pickle.dumps(ff)
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect_ex(('localhost', 1000))
-            sock.sendall(dy)
-            data = sock.recv(10000)
-            decode = data.decode('utf-8')
-            sock.close()
-            print(decode)
-            if decode == '1':
-                self.label_6.setText('Данные верны...')
+            f = core.sock.verefy_profile(self, self.lineEdit.text(), self.lineEdit_2.text())
+            self.label_6.setText(f[0])
+            if f[1] == '1':
+                print('Клиент запущен')
             else:
-                self.label_6.setText('неправельные данные...')
+                print('Запусе клиента откланен')
+        else:
+            self.label_6.setText('В ведите данные...')
 
 
 
@@ -69,7 +61,6 @@ def main():
     app.exec_()
 
 
+
 if __name__ == '__main__':
     main()
-
-
