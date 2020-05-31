@@ -42,12 +42,15 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
 
     def lite(self):
         if self.lineEdit.text() and self.lineEdit_2.text():
-            f = core.sock.verefy_profile(self, self.lineEdit.text(), self.lineEdit_2.text())
-            self.label_6.setText(f[0])
-            if f[1] == '1':
-                print('Клиент запущен')
-            else:
-                print('Запусе клиента откланен')
+            try:
+                f = core.sock.verefy_profile(self, self.lineEdit.text(), self.lineEdit_2.text())
+                self.label_6.setText(f[0])
+                if f[1] == '1':
+                    print('Клиент запущен')
+                else:
+                    print('Запусе клиента откланен')
+            except:
+                self.label_6.setText('сервер не отвечает...')
         else:
             self.label_6.setText('В ведите данные...')
 

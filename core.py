@@ -25,8 +25,12 @@ class sock:
 		sock.sendall(pickle.dumps([name, password]))
 		data = sock.recv(1000000)
 		all_data += data
-		decode = pickle.loads(all_data)
-		print(decode)
+		try:
+			decode = pickle.loads(all_data)
+			print(decode)
+			return decode
+		except:
+			pass
 		sock.close()
-		return decode
+
 
