@@ -1,14 +1,15 @@
 import sys
 import os
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 import LiginPanel
 import time
 import pickle
 import socket
+import win1
 import core
 from multiprocessing import Process
 
-class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
+class ExampleApp(QtWidgets.QMainWindow, win1.Ui_MainWindow):
 
     def __init__(self):
 
@@ -19,6 +20,8 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
         self.lineEdit.hide()
         self.lineEdit_2.hide()
         self.pushButton.hide()
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)  # скрываем окно Виндовс
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)  # Скрываем задний план окна
         self.pushButton_2.clicked.connect(exit)
         self.pushButton_3.clicked.connect(self.test_connect)
         self.pushButton.clicked.connect(self.lite)
@@ -44,15 +47,19 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
         if self.lineEdit.text() and self.lineEdit_2.text():
             try:
                 f = core.Sock.verefy_profile(self, self.lineEdit.text(), self.lineEdit_2.text())
-                self.label_6.setText(f[0])
+                self.lineEdit.setPlaceholderText(f[0])
+                self.lineEdit.clear()
+                self.lineEdit_2.clear()
                 if f[1] == '1':
                     print('Клиент запущен')
                 else:
                     print('Запусе клиента откланен')
             except:
-                self.label_6.setText('сервер не отвечает...')
+                self.lineEdit.setPlaceholderText('сервер не отвечает...')
+                self.lineEdit.clear()
+                self.lineEdit_2.clear()
         else:
-            self.label_6.setText('В ведите данные...')
+            self.lineEdit.setPlaceholderText('Введите данные...')
 
 
 
