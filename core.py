@@ -5,7 +5,7 @@ import time
 server_host = 'localhost'
 port_host = 1000
 
-class sock:
+class Sock:
 	global server_host, port_host
 	def sock_conn_test(self, server = server_host, port = port_host):
 		try:

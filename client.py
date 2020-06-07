@@ -29,7 +29,7 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
 
 
     def test_connect(self):
-        a = core.sock.sock_conn_test(self)
+        a = core.Sock.sock_conn_test(self)
         if a:
             self.label_2.show()
             self.label_3.show()
@@ -43,7 +43,7 @@ class ExampleApp(QtWidgets.QMainWindow, LiginPanel.Ui_MainWindow):
     def lite(self):
         if self.lineEdit.text() and self.lineEdit_2.text():
             try:
-                f = core.sock.verefy_profile(self, self.lineEdit.text(), self.lineEdit_2.text())
+                f = core.Sock.verefy_profile(self, self.lineEdit.text(), self.lineEdit_2.text())
                 self.label_6.setText(f[0])
                 if f[1] == '1':
                     print('Клиент запущен')
