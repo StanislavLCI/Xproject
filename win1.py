@@ -213,7 +213,7 @@ class Ui_MainWindow(object):
         self.listView_2.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.listView_2.setAutoFillBackground(False)
         self.listView_2.setStyleSheet("QListView{\n"
-"background:rgba(180,70,0);\n"
+"background:rgb(180, 70, 0)    ;\n"
 "border-top-left-radius: 15px;\n"
 "border-bottom-left-radius: 15px;\n"
 "}")
